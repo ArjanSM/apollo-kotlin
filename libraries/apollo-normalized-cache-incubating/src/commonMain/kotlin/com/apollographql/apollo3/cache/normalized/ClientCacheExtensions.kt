@@ -131,6 +131,29 @@ fun ApolloClient.Builder.normalizedCache(
       ), writeToCacheAsynchronously)
 }
 
+@ApolloExperimental
+@JvmOverloads
+@JvmName("configureApolloClientBuilder3")
+fun ApolloClient.Builder.normalizedCache(
+    normalizedCacheFactory: NormalizedCacheFactory,
+    cacheKeyGenerator: CacheKeyGenerator,
+    metadataGenerator: MetadataGenerator,
+    cacheKeyResolver: CacheResolver,
+    recordMerger: RecordMerger,
+    writeToCacheAsynchronously: Boolean = false
+): ApolloClient.Builder {
+  return  store(
+      ApolloStore(
+          normalizedCacheFactory = normalizedCacheFactory,
+          cacheKeyGenerator = cacheKeyGenerator,
+          metadataGenerator = metadataGenerator,
+          cacheResolver = cacheKeyResolver,
+          recordMerger
+      ),
+      writeToCacheAsynchronously
+  )
+}
+
 @JvmName("-logCacheMisses")
 fun ApolloClient.Builder.logCacheMisses(
     log: (String) -> Unit = { println(it) },
