@@ -226,3 +226,18 @@ fun ApolloStore(
     cacheResolver = apolloResolver,
     recordMerger = recordMerger
 )
+
+@ApolloExperimental
+fun ApolloStore(
+    normalizedCacheFactory: NormalizedCacheFactory,
+    cacheKeyGenerator: CacheKeyGenerator,
+    metadataGenerator: MetadataGenerator,
+    cacheResolver: CacheResolver,
+    recordMerger: RecordMerger = DefaultRecordMerger
+): ApolloStore = DefaultApolloStore(
+    normalizedCacheFactory = normalizedCacheFactory,
+    cacheKeyGenerator = cacheKeyGenerator,
+    metadataGenerator = metadataGenerator,
+    recordMerger = recordMerger,
+    cacheResolver = cacheResolver
+)
